@@ -9,18 +9,20 @@ description: Review a pull request with a focus on correctness, security, perfor
 
 Activate when you need to review a pull request. Either the pull request was just created or new commits were pushed to an existing pull request. The skill will analyze the changes, check for common issues, and provide feedback.
 
-## Instructions
-The PR in question is identified in the following workflow context:
-PR number: $PR_NUMBER  PR author: $PR_AUTHOR  PR title: "$PR_TITLE"
+## Variables
+MODE: $ARGUMENTS[0]
+PR_REPOSITORY: $ARGUMENTS[1]
+PR_NUMBER: $ARGUMENTS[2]
 
-When $ARGUMENTS contains "new-commits", perform a follow-up review to check if previous feedback has been addressed. Otherwise, perform a fresh initial review.
+## Instructions
+When MODE contains "new-commits", perform a follow-up review to check if previous feedback has been addressed. Otherwise, perform a fresh initial review.
 
 ### When a new PR is created:
 Steps:
-1. Run `gh pr diff $PR_NUMBER` to see all changes.
+1. Run `gh pr diff PR_NUMBER` to see all changes.
 2. Read changed files for deeper context as needed.
 3. Post inline comments for specific code issues.
-4. Post ONE summary comment via `gh pr comment $PR_NUMBER`
+4. Post ONE summary comment via `gh pr comment PR_NUMBER`
    with findings grouped by severity (Critical / Warning / Suggestion)
    and a brief overall assessment.
 
@@ -33,17 +35,17 @@ Your job: check whether previous code review feedback has been addressed.
 
 Steps:
 1. Fetch previous review comments:
-   - `gh api repos/$GH_REPOSITORY/pulls/$PR_NUMBER/comments --paginate`
-   - `gh pr view $PR_NUMBER --comments`
+   - `gh api repos/PR_REPOSITORY/pulls/PR_NUMBER/comments --paginate`
+   - `gh pr view PR_NUMBER --comments`
    Identify all actionable feedback items from prior reviews.
 
-2. Read the current full diff: `gh pr diff $PR_NUMBER`
+2. Read the current full diff: `gh pr diff PR_NUMBER`
    Read specific files if needed for context.
 
 3. For each previous feedback item, classify it as:
    RESOLVED / STILL OPEN / PARTIALLY RESOLVED / NO LONGER APPLICABLE
 
-4. Post ONE comment via `gh pr comment $PR_NUMBER`:
+4. Post ONE comment via `gh pr comment PR_NUMBER`:
 
    ## Follow-up Review
 
