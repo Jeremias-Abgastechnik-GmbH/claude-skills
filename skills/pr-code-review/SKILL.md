@@ -34,10 +34,11 @@ Be constructive. If the PR looks good, say so. Do NOT approve or request changes
 Your job: check whether previous code review feedback has been addressed.
 
 Steps:
-1. Fetch previous review comments:
+1a. Fetch previous review comments:
    - `gh api repos/PR_REPOSITORY/pulls/PR_NUMBER/comments --paginate`
    - `gh pr view PR_NUMBER --comments`
    Identify all actionable feedback items from prior reviews.
+1b. When there are no previous comments, don't continue. Instead, do the steps for "When a new PR is created"
 
 2. Read the current full diff: `gh pr diff PR_NUMBER`
    Read specific files if needed for context.
