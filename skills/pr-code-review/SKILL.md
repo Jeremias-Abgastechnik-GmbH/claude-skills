@@ -15,7 +15,7 @@ PR_REPOSITORY: $ARGUMENTS[1]
 PR_NUMBER: $ARGUMENTS[2]
 
 ## Instructions
-When MODE contains "new-commits", perform a follow-up review to check if previous feedback has been addressed. Otherwise, perform a fresh initial review.
+When MODE contains "new-commits", perform a follow-up review to check if previous feedback has been addressed. Otherwise, perform a fresh initial review. When mentioning specific parts of the code, add the file name in question as well as the line numbers.
 
 ### When a new PR is created:
 Steps:
